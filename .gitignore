@@ -1,0 +1,5 @@
+.env
+db/*
+vendor/
+Private/
+.DS_Store

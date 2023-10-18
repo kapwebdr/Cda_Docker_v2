@@ -1,0 +1,49 @@
+#docker-compose build --no-cache 
+version: "3"
+services:
+  nginx:
+    image: nginx
+    container_name: fmrk_nginx
+    #restart: always
+    links:
+      - php
+    volumes:
+      - ./src/:/var/www/html/:ro
+      - ./nginx/:/etc/nginx/conf.d/
+    ports:
+      - 7000:80
+      - 7001:81
+    
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fmrk_php
+    volumes:
+      - ./src:/var/www/html/
+    tmpfs: /tmp
+    #command: sh -c "composer install --ignore-platform-reqs"
+    depends_on:
+      - mariadb
+    links:
+      - mariadb 
+
+  mariadb:
+    image: mariadb:latest
+    container_name: fmrk_mariadb
+    environment:
+      - MARIADB_ROOT_PASSWORD=${MARIA_DB_ROOT_PWD}
+      - MARIADB_USER=${MARIADB_USER}
+      - MARIADB_PASSWORD=${MARIA_DB_USER_PWD} 
+    volumes:
+      #- ./db/:/var/lib/mysql/
+      - ./dump/:/docker-entrypoint-initdb.d
+      
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: fmrk_phpmyadmin
+    ports:
+      - 7020:80
+    links:
+      - mariadb:db
+

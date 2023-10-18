@@ -1,0 +1,22 @@
+{
+    "name": "kapweb/cda",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Kapweb"
+        }
+    ],
+    "optimize-autoloader": true,
+    "autoload":{
+        "psr-4": {
+            "Controller\\":"Controller/",
+            "Model\\":"Model/"
+        }
+    },
+    "require": {
+        "nikic/fast-route": "^1.3",
+        "smarty/smarty": "^4.3",
+        "twig/twig": "^3.0",
+        "vlucas/phpdotenv": "^5.5"
+    }
+}

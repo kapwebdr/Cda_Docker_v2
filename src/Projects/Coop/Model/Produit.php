@@ -1,5 +1,5 @@
 <?php
-namespace Model;
+namespace Projects\Coop\Model;
 
 use App\Model\Db;
 

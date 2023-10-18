@@ -9,9 +9,17 @@ define('DB_NAME',$_ENV['DB_NAME']);
 define('DB_USER',$_ENV['DB_USER']);
 define('DB_PASSWORD',$_ENV['DB_PASSWORD']);
 
+if(file_exists(DIR_PROJECT_ROOT.'vendor/autoload.php'))
+{
+    require_once(DIR_PROJECT_ROOT.'vendor/autoload.php');
+}
+
 require_once DIR_PROJECT_CONFIG.'routes.php';
+
 require_once(DIR_PROJECT_CONTROLLER.'Home.php');
 require_once(DIR_PROJECT_CONTROLLER.'Produit.php');
 require_once(DIR_PROJECT_MODEL.'Produit.php');
+
+
 
 ?>

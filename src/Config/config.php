@@ -31,11 +31,12 @@ if(is_null($project))
 if(is_array($project))
 {
 	define('PROJECT',$project['name']);
-	define('DIR_PROJECT_PRIVATE',DIR_PROJECT.PROJECT.'/Private/');
-	define('DIR_PROJECT_CONFIG',DIR_PROJECT.PROJECT.'/Config/');
-	define('DIR_PROJECT_VIEW',DIR_PROJECT.PROJECT.'/View/');
-	define('DIR_PROJECT_MODEL',DIR_PROJECT.PROJECT.'/Model/');
-	define('DIR_PROJECT_CONTROLLER',DIR_PROJECT.PROJECT.'/Controller/');
+	define('DIR_PROJECT_ROOT',DIR_PROJECT.PROJECT.'/');
+	define('DIR_PROJECT_PRIVATE',DIR_PROJECT_ROOT.'/Private/');
+	define('DIR_PROJECT_CONFIG',DIR_PROJECT_ROOT.'/Config/');
+	define('DIR_PROJECT_VIEW',DIR_PROJECT_ROOT.'/View/');
+	define('DIR_PROJECT_MODEL',DIR_PROJECT_ROOT.'/Model/');
+	define('DIR_PROJECT_CONTROLLER',DIR_PROJECT_ROOT.'/Controller/');
 	
 	$dotenv = Dotenv\Dotenv::createImmutable(DIR_PROJECT_CONFIG.$project['env'].'/');
 	$dotenv->safeLoad();

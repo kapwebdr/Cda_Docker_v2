@@ -6,7 +6,7 @@ MARIA_DB_ROOT_PWD=cdaweb
 MARIA_DB_USER_PWD=cdaweb
 MARIADB_USER=cdaweb
 
-Create an .env file in src/Projects/(VotreProjet)/Config/(VotreEnvironnement)/ folder that contain (example) : 
+Create an .env file in src/Projects/(MyProject)/Config/(MyEnv)/ folder that contain (example) : 
 DB_HOST=mariadb
 DB_PORT=3006
 DB_NAME=cdaweb
@@ -21,6 +21,11 @@ To start the framework :
 
 If you need to install other libraries via composer : 
 - docker exec -it docker_php /bin/sh
+- composer install
+
+And By project you can also install libraries via composer : 
+- docker exec -it docker_php /bin/sh
+- cd Projects/(MyProject)/
 - composer install
 
 Go to http://127.0.0.1:7000

@@ -1,11 +1,12 @@
-CDA / Docker + Php Objet + Light Framework.
+CDA / Docker + Php Objet + Light Framework v2.
 By Kapweb.
 
 Create an .env file in root folder that contain (example) : 
 MARIA_DB_ROOT_PWD=cdaweb
 MARIA_DB_USER_PWD=cdaweb
+MARIADB_USER=cdaweb
 
-Create an .env file in Projects folder that contain (example) : 
+Create an .env file in src/Projects/(VotreProjet)/Config/(VotreEnvironnement)/ folder that contain (example) : 
 DB_HOST=mariadb
 DB_PORT=3006
 DB_NAME=cdaweb
@@ -22,5 +23,7 @@ If you need to install other libraries via composer :
 - docker exec -it docker_php /bin/sh
 - composer install
 
-Go to http://127.0.0.1:8000
+Go to http://127.0.0.1:7000
+PhpMyAdmin to http://127.0.0.1:7020
 Have fun.
+

@@ -13,4 +13,6 @@
     </tr>
 {/foreach}
 </table>
+
+<img src="/img/pinguoin.jpg"/>
 {include file="./footer.tpl"}

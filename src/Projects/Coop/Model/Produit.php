@@ -5,7 +5,7 @@ use App\Model\Db;
 
 class Produit extends Db
 {
-    protected $table = 'produit';  
+    protected $table = 'produit';
     
     public function getProduit(int $id):array
     {

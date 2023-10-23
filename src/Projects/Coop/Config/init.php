@@ -17,6 +17,5 @@ if(file_exists(DIR_PROJECT_ROOT.'vendor/autoload.php'))
 require_once DIR_PROJECT_CONFIG.'routes.php';
 
 require_once(DIR_PROJECT_CONTROLLER.'Home.php');
-require_once(DIR_PROJECT_CONTROLLER.'Produit.php');
 require_once(DIR_PROJECT_MODEL.'Produit.php');
 ?>

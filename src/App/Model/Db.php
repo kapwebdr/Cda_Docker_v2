@@ -10,6 +10,9 @@ class Db
     protected array $whereConditions = [];
     protected array $joinConditions = [];
     
+    protected array $relations = [];
+
+
     private $_result = [];
 
     static function Connect()
@@ -38,7 +41,7 @@ class Db
     private function getProperties()
     {
         $properties = get_object_vars($this);
-        unset($properties['table'], $properties['primaryKeys'], $properties['whereConditions'], $properties['joinConditions'],$properties['_result']);
+        unset($properties['table'], $properties['primaryKeys'], $properties['whereConditions'], $properties['joinConditions'],$properties['_result'], $properties['relations'],);
         return $properties;
     }
 
@@ -48,6 +51,29 @@ class Db
         return $this;
     }
 
+    public function With(string $relation, string $modelClass, string $foreignKey, string $localKey): static
+    {
+        $this->relations[$relation] = [
+            'model' => $modelClass,
+            'foreignKey' => $foreignKey,
+            'localKey' => $localKey
+        ];
+        return $this;
+    }
+
+    private function affectResult($object,$data)
+    {
+        foreach ($data as $key => $value) {
+            if (property_exists($object, $key)) {
+                $object->$key = $value;
+            }
+        }
+        foreach ($this->relations as $relation => $config) {
+            $relatedModel = new $config['model']();
+            $relatedModel->Where([$config['foreignKey'] => $object->{$config['localKey']}]);
+            $object->$relation = $relatedModel->FindOne();
+        }
+    }
     public function Find()
     {
         $whereSql = $this->generateWhere();
@@ -61,13 +87,10 @@ class Db
         if ($dataAll) {
             foreach ($dataAll as $data) {
                 $item = clone $this;
-                foreach ($data as $key => $value) {
-                    if (property_exists($item, $key)) {
-                        $item->$key = $value;
-                    }
-                }
+                $this->affectResult($item,$data);
             }
         }
+        
         return $this;
     }
 
@@ -76,18 +99,12 @@ class Db
         $whereSql = $this->generateWhere();
         $joinSql = $this->generateJoin();
         $sql = "SELECT * FROM {$this->table}{$joinSql}{$whereSql}";
-        echo $sql;
         $stmt = self::$db->prepare($sql);
-        var_dump($this->getWhereValues());
         $stmt->execute($this->getWhereValues());
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
         $this->_result = $data;
         if ($data) {
-            foreach ($data as $key => $value) {
-                if (property_exists($this, $key)) {
-                    $this->$key = $value;
-                }
-            }
+            $this->affectResult($this,$data);
         }
         return $this;
     }

@@ -1,7 +1,8 @@
 <?php
 namespace Projects\Coop\Controller;
 
-use \Projects\Coop\Model\Produit;
+use \Projects\Model\Produit;
+use \Projects\Model\Categorie;
 
 use App\Controller\Main;
 use App\Controller\View;
@@ -24,9 +25,20 @@ class Home extends Main
         // Récupération d'un Produit : 
         $Produit                    = new Produit();
         $Result = $Produit
-            ->Join(['type'=>'INNER','table'=>'categorie','condition'=>'categorie.categorie_id=produit.categorie'])
+            ->With('categorie', Categorie::class, 'categorie', 'categorie_id')
+            //->Join(['type'=>'INNER','table'=>'categorie','condition'=>'categorie.categorie_id=produit.categorie'])
             ->Where(['idProduit'=>$ProduitInsert->idProduit])
             ->FindOne();
+        /*
+        $result = $user->Where([['age', '<', 18], 'OR', ['age', '>', 60]])->Find();
+        $user = new User();
+        $result = $user->Where([
+            ['name', '=', 'John'],
+            'AND',
+            [['age', '<', 18], 'OR', ['age', '>', 60]]
+        ])->Find();
+        $result = $user->Where(['age', 'BETWEEN', [18, 60]])->Find();
+        */    
         echo $Result->name." <br/>";
         echo '<pre>';
         var_dump($Result->toArray());

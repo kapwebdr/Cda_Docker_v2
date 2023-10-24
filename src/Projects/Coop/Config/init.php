@@ -18,4 +18,5 @@ require_once DIR_PROJECT_CONFIG.'routes.php';
 
 require_once(DIR_PROJECT_CONTROLLER.'Home.php');
 require_once(DIR_PROJECT_MODEL.'Produit.php');
+require_once(DIR_PROJECT_MODEL.'Categorie.php');
 ?>

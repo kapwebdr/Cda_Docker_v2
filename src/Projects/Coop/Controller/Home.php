@@ -1,8 +1,10 @@
 <?php
 namespace Projects\Coop\Controller;
 
-use \Projects\Model\Produit;
-use \Projects\Model\Categorie;
+use Illuminate\Database\Capsule\Manager as Capsule;
+
+use \Projects\Coop\Model\Produit;
+use \Projects\Coop\Model\Categorie;
 
 use App\Controller\Main;
 use App\Controller\View;
@@ -11,7 +13,22 @@ class Home extends Main
 {
     public function Index()
     {
+        // Capsule::schema()->create('produits', function ($table) {
+        //     $table->increments('id');
+        //     $table->string('name');
+        //     $table->string('description');
+        //     $table->timestamps();
+        // });
+        View::Init('smarty');
+        View::Set('title','Titre de la page');
+        View::Set('h1','Bonjour le monde !!');
+       // View::Set('Products',$Produits);
+        View::Display('Home');
+    }
+    public function IndexOLD()
+    {
         $names = ['Apple','Tesla','Microsoft'];
+        
         // Insert
         echo "Insertion en Bdd :  ";
         $ProduitInsert                    = new Produit();
@@ -25,7 +42,7 @@ class Home extends Main
         // Récupération d'un Produit : 
         $Produit                    = new Produit();
         $Result = $Produit
-            ->With('categorie', Categorie::class, 'categorie', 'categorie_id')
+            ->With('categorie', Categorie::class, 'categorie_id', 'categorie')
             //->Join(['type'=>'INNER','table'=>'categorie','condition'=>'categorie.categorie_id=produit.categorie'])
             ->Where(['idProduit'=>$ProduitInsert->idProduit])
             ->FindOne();
@@ -38,7 +55,8 @@ class Home extends Main
             [['age', '<', 18], 'OR', ['age', '>', 60]]
         ])->Find();
         $result = $user->Where(['age', 'BETWEEN', [18, 60]])->Find();
-        */    
+        */  
+
         echo $Result->name." <br/>";
         echo '<pre>';
         var_dump($Result->toArray());

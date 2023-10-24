@@ -1,17 +1,13 @@
 <?php
 namespace Projects\Coop\Model;
 
-use App\Model\Db;
-
-class Produit extends Db
+class Produit extends \Illuminate\Database\Eloquent\Model
 {
-    protected string $table = 'produit';
-    protected array $primaryKeys = ['idProduit'];
-    
-    public int $idProduit;
-    public string $name;
-    public string $description;
-    public int $categorie;
-    
+    protected $table = 'produit';
+    protected $primaryKey = 'idProduit';
+    public $incrementing    = true;
+    protected $fillable = [
+        'name', 'description', 'categorie'
+    ];
 }
 ?>

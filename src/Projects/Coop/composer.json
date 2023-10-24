@@ -7,12 +7,6 @@
         }
     ],
     "optimize-autoloader": true,
-    "autoload":{
-        "psr-4": {
-            "Project\\Controller\\":"Project/Coop/Controller/",
-            "Project\\Model\\":"Project/Coop/Model/"
-        }
-    },
     "require": {
         "smarty/smarty": "^4.3"
     }
